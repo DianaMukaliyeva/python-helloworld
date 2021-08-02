@@ -38,4 +38,6 @@ jobs:
          platforms: linux/amd64
          push: true
          tags: dmukaliy/python-helloworld:latest
-
+   outputs:
+    test_commit_message: $( [ -z "${{ steps.test_here.outputs.test_commit_message }}" ] && echo "${{ steps.test_here.outputs.test_commit_message }}" )
+    
