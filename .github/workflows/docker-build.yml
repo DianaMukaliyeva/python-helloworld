@@ -30,7 +30,7 @@ jobs:
       run: echo "The check" 
     -
       name: "See last commit message"
-      run: echo $pr_commit_message
+      run: echo ${{ needs.test.steps.test_here.outputs.pr_commit_message }}
   docker:
    runs-on: ubuntu-latest
    steps:
