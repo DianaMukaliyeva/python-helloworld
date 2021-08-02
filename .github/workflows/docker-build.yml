@@ -20,10 +20,13 @@ jobs:
     test_commit_message: $( [ -z "${{ steps.test_here.outputs.test_commit_message }}" ] && echo "${{ steps.test_here.outputs.test_commit_message }}" )
   test2:
    runs-on: ubuntu-latest
-   if: "contains(needs.test.outputs.test_commit_message, 'Update docker-build.yml')"
    needs: test
    steps:
-    - name: echo here
+    -
+      name: Checkout
+      uses: actions/checkout@v2
+    - 
+      name: echo here
       run: echo "The check" 
     -
       name: "See last commit message"
