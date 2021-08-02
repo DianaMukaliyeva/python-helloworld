@@ -26,7 +26,10 @@ jobs:
     pr_commit_message: ${{ steps.test_here.outputs.pr_commit_message }}
   test2:
    runs-on: ubuntu-latest
+   if: "contains(needs.test.outputs.pr_commit_message, 'Update')"
+   <%- if needs -%>
    needs: test
+   <%- end -%>
    steps:
     -
       name: Checkout
