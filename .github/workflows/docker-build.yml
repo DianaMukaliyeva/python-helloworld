@@ -6,16 +6,30 @@ on:
       - 'master'
 
 jobs:
+  test:
+   runs-on: ubuntu-latest
+   steps: 
+     -
+       name: "See last commit message"
+       id: test_here
+   outputs:
+    test_commit_message: $( [ -z "${{ steps.test_here.outputs.test_commit_message }}" ] && echo "${{ steps.test_here.outputs.test_commit_message }}" )
+  test2:
+   runs-on: ubuntu-latest
+   if: "contains(test.outputs.test_commit_message, 'r-test')"
+   needs: test
+   steps:
+    - name: echo here
+      run: echo "The check" 
+    -
+      name: "See last commit message"
+      id: echo test.outputs.test_commit_message
   docker:
    runs-on: ubuntu-latest
    steps:
      -
        name: Checkout
        uses: actions/checkout@v2
-     -
-       name: "See last commit message"
-       id: test_here
-       run: echo ::set-output name=test_commit_message::$(git log --format=%B -n 1 HEAD)
      -
        name: Set up QEMU
        uses: docker/setup-qemu-action@v1
@@ -38,6 +52,4 @@ jobs:
          platforms: linux/amd64
          push: true
          tags: dmukaliy/python-helloworld:latest
-   outputs:
-    test_commit_message: $( [ -z "${{ steps.test_here.outputs.test_commit_message }}" ] && echo "${{ steps.test_here.outputs.test_commit_message }}" )
-    
+  
