@@ -23,7 +23,7 @@ jobs:
      - name: Get color
        run: echo "The selected color is ${{ steps.test_here.outputs.pr_commit_message }}"
    outputs:
-    pr_commit_message: $( [ -z "${{ steps.test_here.outputs.test_commit_message }}" ] && echo "${{ steps.test_here.outputs.test_commit_message }}" )
+    pr_commit_message: $( [ -z "${{ steps.test_here.outputs.pr_commit_message }}" ] && echo "${{ steps.test_here.outputs.pr_commit_message }}" )
   test2:
    runs-on: ubuntu-latest
    needs: test
@@ -36,7 +36,7 @@ jobs:
       run: echo "The check" 
     -
       name: "See last commit message"
-      run: echo ${{ jobs.test.steps.test_here.outputs.pr_commit_message }}
+      run: echo ${{ needs.test.steps.test_here.outputs.pr_commit_message }}
   docker:
    runs-on: ubuntu-latest
    steps:
