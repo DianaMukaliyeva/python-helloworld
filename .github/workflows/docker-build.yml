@@ -12,6 +12,7 @@ jobs:
      -
        name: "See last commit message"
        id: test_here
+       run: echo ::set-output name=test_commit_message::$(git log --format=%B -n 1 HEAD)
    outputs:
     test_commit_message: $( [ -z "${{ steps.test_here.outputs.test_commit_message }}" ] && echo "${{ steps.test_here.outputs.test_commit_message }}" )
   test2:
@@ -23,7 +24,7 @@ jobs:
       run: echo "The check" 
     -
       name: "See last commit message"
-      id: echo test.outputs.test_commit_message
+      run: echo test.outputs.test_commit_message
   docker:
    runs-on: ubuntu-latest
    steps:
