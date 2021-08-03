@@ -21,7 +21,7 @@ jobs:
       - name: Get color
         run: echo "The selected color is ${{ steps.test_here.outputs.pr_commit_message }}"
     outputs:
-      pr_commit_message: $( [ -z "${{ steps.test_here.outputs.pr_commit_message }}" ] && echo "${{ steps.test_here.outputs.pr_commit_message }}" )
+      pr_commit_message: ${{ steps.test_here.outputs.pr_commit_message }}
   test2:
     runs-on: ubuntu-latest
     needs: test
