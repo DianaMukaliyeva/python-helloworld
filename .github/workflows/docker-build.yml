@@ -33,7 +33,7 @@ jobs:
       uses: actions/checkout@v2
     - 
       name: echo here
-      run: echo "The check" 
+      run: echo "The check " 
     -
       name: "See last commit message"
       run: echo ${{ needs.test.outputs.pr_commit_message }}
